@@ -11,7 +11,7 @@ resources:
     type: Image
     configuration:
       registry: MyArtifactory                                  # <-- replace with your artifactory integration
-      sourceRepository: docker-local-github-team1              # <-- required if registry is Artifactory
+      #sourceRepository: docker-local-github-team1              # <-- required if registry is Artifactory
       imageName: kaloula.jfrog-pipelines.com/docker-local/dbp  # < -- replace with your image path and name
       imageTag: latest
       autoPull: true
@@ -40,7 +40,7 @@ pipelines:
           affinityGroup: dbp_group
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: kaloula.jfrog-pipelines.com/docker-local/dbp  # replace with your image path and name
+          dockerImageName: artifactory2021.jfrog.io/docker-local-github-team1/dbp  # replace with your image path and name
           dockerImageTag: ${run_number}
           inputResources:
             - name: dbp_repo
@@ -51,7 +51,7 @@ pipelines:
         type: DockerPush
         configuration:
           affinityGroup: dbp_group
-          targetRepository: docker-local
+          targetRepository: docker-local-github-team1
           integrations:
             - name: MyArtifactory                            # <-- replace with your artifactory integration
           inputSteps:
